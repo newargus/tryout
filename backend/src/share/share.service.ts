@@ -13,6 +13,7 @@ import * as moment from "moment";
 import { ConfigService } from "src/config/config.service";
 import { EmailService } from "src/email/email.service";
 import { FileService } from "src/file/file.service";
+import { LoggerService } from "src/logger/logger.service";
 import { PrismaService } from "src/prisma/prisma.service";
 import { CreateShareDTO } from "./dto/createShare.dto";
 
@@ -23,7 +24,8 @@ export class ShareService {
     private fileService: FileService,
     private emailService: EmailService,
     private config: ConfigService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private readonly logger: LoggerService
   ) {}
 
   async create(share: CreateShareDTO, user?: User) {
@@ -56,7 +58,7 @@ export class ShareService {
       expirationDate = moment(0).toDate();
     }
 
-    return await this.prisma.share.create({
+    const result = await this.prisma.share.create({
       data: {
         ...share,
         expiration: expirationDate,
@@ -69,6 +71,10 @@ export class ShareService {
         },
       },
     });
+
+    this.logger.log('[ShareService] - Create','New Share with id {'+share.id+'} has been created by '+ user.id)
+
+    return result;
   }
 
   async createZip(shareId: string) {

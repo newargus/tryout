@@ -1,8 +1,13 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { Expose, plainToClass } from "class-transformer";
 import { ShareDTO } from "./share.dto";
 
 export class MyShareDTO extends ShareDTO {
   @Expose()
+  @ApiProperty({
+    description: 'Number of visitors',
+    type: 'number'
+  })
   views: number;
 
   @Expose()
