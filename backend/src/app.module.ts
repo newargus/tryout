@@ -14,6 +14,7 @@ import { PrismaModule } from "./prisma/prisma.module";
 import { ShareModule } from "./share/share.module";
 import { UserModule } from "./user/user.module";
 import { JobsModule } from "./jobs/jobs.module";
+import { LoggerModule } from './logger/logger.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { JobsModule } from "./jobs/jobs.module";
       limit: 100,
     }),
     ScheduleModule.forRoot(),
+    LoggerModule,
   ],
 })
 export class AppModule {}
