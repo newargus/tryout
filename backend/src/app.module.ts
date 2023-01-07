@@ -15,6 +15,8 @@ import { ShareModule } from "./share/share.module";
 import { UserModule } from "./user/user.module";
 import { JobsModule } from "./jobs/jobs.module";
 import { LoggerModule } from './logger/logger.module';
+import * as path from 'path';
+import { I18nModule } from "nestjs-i18n";
 
 @Module({
   imports: [
@@ -50,6 +52,13 @@ import { LoggerModule } from './logger/logger.module';
     }),
     ScheduleModule.forRoot(),
     LoggerModule,
+    I18nModule.forRoot({
+      fallbackLanguage: 'en',
+      loaderOptions: {
+        path: path.join(__dirname, '/i18n/'),
+        watch: true,
+      },
+    }),
   ],
 })
 export class AppModule {}
