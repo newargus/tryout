@@ -1,3 +1,48 @@
+### Bug Fixes
+
+* invalid github release link on admin page ([349bf47](https://github.com/stonith404/pingvin-share/commit/349bf475cc7fc1141dbd2a9bd2f63153c4d5b41b))
+
+### [0.6.1](https://github.com/stonith404/pingvin-share/compare/v0.6.0...v0.6.1) (2023-01-11)
+
+
+### Features
+
+* delete all sessions if password was changed ([02e41e2](https://github.com/stonith404/pingvin-share/commit/02e41e243768de34de1bdc8833e83f60db530e55))
+
+
+### Bug Fixes
+
+* shareUrl uses wrong origin ([f1b44f8](https://github.com/stonith404/pingvin-share/commit/f1b44f87fa64d3b21ca92c9068cb352d0ad51bc0))
+* update password doesn't work ([74e8956](https://github.com/stonith404/pingvin-share/commit/74e895610642552c98c0015d0f8347735aaed457))
+
+## [0.6.0](https://github.com/stonith404/pingvin-share/compare/v0.5.1...v0.6.0) (2023-01-09)
+
+
+### Features
+
+* chunk uploads ([#76](https://github.com/stonith404/pingvin-share/issues/76)) ([653d72b](https://github.com/stonith404/pingvin-share/commit/653d72bcb958268e2f23efae94cccb72faa745af))
+
+
+### Bug Fixes
+
+* access token refreshes even it is still valid ([c8ad222](https://github.com/stonith404/pingvin-share/commit/c8ad2225e3c9ca79fea494d538b67797fbc7f6ae))
+* error message typo ([72c8081](https://github.com/stonith404/pingvin-share/commit/72c8081e7c135ab1f600ed7e3d7a0bf03dabde34))
+* migration for v0.5.1 ([f2d4895](https://github.com/stonith404/pingvin-share/commit/f2d4895e50d3da82cef68858752fb7f6293e7a20))
+* refresh token expires after 1 day instead of 3 months ([a5bef5d](https://github.com/stonith404/pingvin-share/commit/a5bef5d4a4ae75447ca1f65259c5541edfc87dd8))
+
+### [0.5.1](https://github.com/stonith404/pingvin-share/compare/v0.5.0...v0.5.1) (2023-01-04)
+
+
+### Features
+
+* show version and show button if new release is available on admin page ([71658ad](https://github.com/stonith404/pingvin-share/commit/71658ad39d7e3638de659e8230fad4e05f60fdd8))
+* use cookies for authentication ([faea1ab](https://github.com/stonith404/pingvin-share/commit/faea1abcc4b533f391feaed427e211fef9166fe4))
+
+
+### Bug Fixes
+
+* email configuration updated without restart ([1117465](https://github.com/stonith404/pingvin-share/commit/11174656e425c4be60e4f7b1ea8463678e5c60d2))
+
 ## [0.5.0](https://github.com/stonith404/pingvin-share/compare/v0.4.0...v0.5.0) (2022-12-30)
 
 

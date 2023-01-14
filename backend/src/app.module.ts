@@ -1,22 +1,21 @@
-import { HttpException, HttpStatus, Module } from "@nestjs/common";
+import { Module } from "@nestjs/common";
 
 import { ScheduleModule } from "@nestjs/schedule";
 import { AuthModule } from "./auth/auth.module";
 
-import { MulterModule } from "@nestjs/platform-express";
-import { ThrottlerModule } from "@nestjs/throttler";
-import { Request } from "express";
+import { APP_GUARD } from "@nestjs/core";
+import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { ConfigModule } from "./config/config.module";
-import { ConfigService } from "./config/config.service";
 import { EmailModule } from "./email/email.module";
 import { FileModule } from "./file/file.module";
+import { JobsModule } from "./jobs/jobs.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { ShareModule } from "./share/share.module";
 import { UserModule } from "./user/user.module";
-import { JobsModule } from "./jobs/jobs.module";
 import { LoggerModule } from './logger/logger.module';
 import * as path from 'path';
-import { I18nModule } from "nestjs-i18n";
+import { AcceptLanguageResolver, I18nModule, QueryResolver } from "nestjs-i18n";
+import { HelloModule } from './hello/hello.module';
 
 @Module({
   imports: [
@@ -28,24 +27,6 @@ import { I18nModule } from "nestjs-i18n";
     ConfigModule,
     JobsModule,
     UserModule,
-    MulterModule.registerAsync({
-      useFactory: (config: ConfigService) => ({
-        fileFilter: (req: Request, file, cb) => {
-          const MAX_FILE_SIZE = config.get("MAX_FILE_SIZE");
-          const requestFileSize = parseInt(req.headers["content-length"]);
-          const isValidFileSize = requestFileSize <= MAX_FILE_SIZE;
-          cb(
-            !isValidFileSize &&
-              new HttpException(
-                `File must be smaller than ${MAX_FILE_SIZE} bytes`,
-                HttpStatus.PAYLOAD_TOO_LARGE
-              ),
-            isValidFileSize
-          );
-        },
-      }),
-      inject: [ConfigService],
-    }),
     ThrottlerModule.forRoot({
       ttl: 60,
       limit: 100,
@@ -55,10 +36,21 @@ import { I18nModule } from "nestjs-i18n";
     I18nModule.forRoot({
       fallbackLanguage: 'en',
       loaderOptions: {
-        path: path.join(__dirname, '/i18n/'),
+        path: path.join(__dirname, '../i18n/'),
         watch: true,
       },
+      resolvers: [
+        { use: QueryResolver, options: ['lang'] },
+        AcceptLanguageResolver,
+      ],
     }),
+    HelloModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class AppModule {}

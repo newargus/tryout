@@ -1,0 +1,6 @@
+{
+  "TestEmail": {
+    "Subject": "Email de test",
+    "Body": "Ceci est un email de test"
+  }
+}
